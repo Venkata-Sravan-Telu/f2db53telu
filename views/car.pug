@@ -1,3 +1,43 @@
 extends layout
 
 block content
+  h1= title
+  - 
+   let results =[
+      {
+        "car_name": "Ford Focus",
+        "car_price": 6000,
+        "car_model": 2012
+      },
+      {
+        "car_name": "Chevrolet Malibu",
+        "car_price": 6500,
+        "car_model": 2013
+      },
+      {
+        "car_name": "Toyoto Camry",
+        "car_price": 26000,
+        "car_model": 2022
+      },
+      {
+        "car_name": "Hyundai Elantra",
+        "car_price": 6500,
+        "car_model": 2013
+      },
+      {
+        "car_name": "Chevrolet Cruze",
+        "car_price": 4250,
+        "car_model": 2012
+      }
+    ]
+  .container-fluid 
+    .row 
+      each car in results
+        div(class="col-sm-2" onclick=`buy(${results.indexOf(car)})`) 
+          each value,key in car 
+            = key+" : "+value
+            br
+  script.
+    function buy(index){
+      alert("You purchased item "+index)
+    }
