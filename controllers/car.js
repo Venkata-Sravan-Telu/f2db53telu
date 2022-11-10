@@ -1,4 +1,4 @@
-var Costume = require('../models/car'); 
+var car = require('../models/car'); 
  
 // List of all Costumes 
 exports.car_list = function(req, res) { 
@@ -37,15 +37,15 @@ exports.car_list = async function(req, res) {
     }   
 }; 
 
-// // VIEWS 
-// // Handle a show all view 
-// exports.car_view_all_Page = async function(req, res) { 
-//     try{ 
-//         theCar = await car.find(); 
-//         res.render('car', { title: 'Car Search Results', results: theCar }); 
-//     } 
-//     catch(err){ 
-//         res.status(500); 
-//         res.send(`{"error": ${err}}`); 
-//     }   
-// }; 
+// VIEWS 
+// Handle a show all view 
+exports.car_view_all_Page = async function(req, res) { 
+    try{ 
+        theCar = await car.find(); 
+        res.render('car', { title: 'Car Search Results', results: theCar }); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+}; 
