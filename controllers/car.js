@@ -93,7 +93,7 @@ exports.car_update_put = async function(req, res) {
         if(req.body.car_price) toUpdate.car_price = req.body.car_price;
 
         if(req.body.car_model) toUpdate.car_model = req.body.car_model;
-
+        
         let result = await toUpdate.save();
 
         console.log("Success " + result)
