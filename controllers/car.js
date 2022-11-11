@@ -36,10 +36,8 @@ exports.car_delete = function(req, res) {
     res.send('NOT IMPLEMENTED: car delete DELETE ' + req.params.id); 
 }; 
  
-// Handle car update form on PUT. 
-exports.car_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: car update PUT' + req.params.id); 
-}; 
+ 
+
 // List of all car 
 exports.car_list = async function(req, res) { 
     try{ 
@@ -63,4 +61,53 @@ exports.car_view_all_Page = async function(req, res) {
         res.status(500); 
         res.send(`{"error": ${err}}`); 
     }   
+}; 
+
+// for a specific Costume. 
+exports.car_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await car.findById( req.params.id) 
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
+}; 
+
+// Handle car update form on PUT.
+// Handle Application update form on PUT.
+
+exports.car_update_put = async function(req, res) {
+
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
+
+    try {
+
+        let toUpdate = await car.findById( req.params.id)
+
+        // Do updates of properties
+
+        if(req.body.car_name) toUpdate.car_name = req.body.car_name;
+
+        if(req.body.car_price) toUpdate.car_price = req.body.car_price;
+
+        if(req.body.car_model) toUpdate.car_model = req.body.car_model;
+
+        let result = await toUpdate.save();
+
+        console.log("Success " + result)
+
+        res.send(result)
+
+    } catch (err) {
+
+        res.status(500)
+
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
+
+failed`);
+
+    }
+
 }; 
