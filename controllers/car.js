@@ -35,6 +35,20 @@ exports.car_create_post = async function(req, res) {
 exports.car_delete = function(req, res) { 
     res.send('NOT IMPLEMENTED: car delete DELETE ' + req.params.id); 
 }; 
+
+ // Handle building the view for creating a car. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.car_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('carcreate', { title: 'Car Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
  
  
 
@@ -110,4 +124,59 @@ failed`);
 
     }
 
+}; 
+
+// Handle Costume delete on DELETE. 
+exports.car_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await car.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
+}; 
+
+// Handle a show one view with id specified by query 
+exports.car_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await car.findById( req.query.id) 
+        res.render('cardetail',  
+{ title: 'car Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+// Handle building the view for updating a car. 
+// query provides the id 
+exports.car_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await car.findById(req.query.id) 
+        res.render('carupdate', { title: 'Car Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+};
+
+// Handle a delete one view with id from query 
+exports.car_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await car.findById(req.query.id) 
+        res.render('cardelete', { title: 'Car Delete', toShow: 
+result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
 }; 
