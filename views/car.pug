@@ -32,11 +32,18 @@ block content
     ]
   .container-fluid 
     .row 
-      each car in results
-        div(class="col-sm-2" onclick=`buy(${results.indexOf(car)})`) 
-          each value,key in car 
-            = key+" : "+value
+    .m-1
+      each value,key in results
+        - let destination = `dispatch(\"/car/update?id=${value._id}\")`
+        div(class="col-sm-2" onclick=`buy(${key})`) 
+            = value.car_name+" "+value.car_price+"  "+value.car_model
             br
+        button.btn( class="btn-sm btn-outline-white btn-success  ml-1", onclick= destination) To Update Records
+   
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    } 
   script.
     function buy(index){
       alert("You purchased item "+index)

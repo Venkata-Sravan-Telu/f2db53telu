@@ -2,18 +2,21 @@ extends layout
  
 block content 
   h1= title 
- 
+  - let carid = toShow._id
   - let car_name = toShow.car_name 
   - let car_price = toShow.car_price
   - let car_model = toShow.car_model 
   div 
     div.row 
-      div(class='carAttr mr-3') Car ID is: 
+      div(class='carAttr mr-3') Car Ids is: 
+      div #{carid} 
+    div.row 
+      div(class='carAttr mr-3') Car name is: 
       div #{car_name} 
     div.row 
-      div(class='carAttr mr-3') Car Type is: 
+      div(class='carAttr mr-3') Car price is: 
       div #{car_price} 
     div.row 
-      div(class='carAttr mr-3') Car Size is: 
+      div(class='carAttr mr-3') Car model is: 
       div #{car_model} 
     
